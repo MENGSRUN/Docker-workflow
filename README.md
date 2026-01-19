@@ -63,6 +63,11 @@ RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
 # Copy Laravel app
 COPY . .
 
+# EnvEditor backup dir for production
+RUN mkdir -p resources/backups/dotenv-editor \
+    && chown -R www-data:www-data resources/backups \
+    && chmod -R 775 resources/backups
+
 # Copy built assets from node-builder
 COPY --from=node-builder /app/public ./public
 
